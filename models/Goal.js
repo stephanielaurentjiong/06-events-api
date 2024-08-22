@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const GoalSchema = new mongoose.Schema(
   {
-    goal: {
+    goalName: {
       type: String,
       required: [true, "Provide your goal title"],
     },
@@ -13,14 +13,12 @@ const GoalSchema = new mongoose.Schema(
     category: {
       type: String,
       enum: ["personal", "professional", "educational", "health"],
-      // required: true,
       default: "personal",
     },
     status: {
       type: String,
       enum: ["not started", "in-progress", "completed"],
-      // required: true,
-      default: "notstarted",
+      default: "not started",
     },
     createdBy: {
       type: mongoose.Types.ObjectId,
