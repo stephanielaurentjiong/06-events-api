@@ -16,7 +16,9 @@ const authenticateUser = require("./middleware/authentication");
 
 //routers
 const authRouter = require("./routes/auth");
-const goalsRouter = require("./routes/goals");
+const eventsRouter = require("./routes/events");
+const attendeesRouter = require("./routes/attendees");
+const remindersRouter = require("./routes/reminders");
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -39,7 +41,16 @@ app.use(express.json());
 
 // routes
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/goals", authenticateUser, goalsRouter);
+// app.use("/api/v1/events", authenticateUser, goalsRouter);
+app.use("/api/v1/events", authenticateUser, eventsRouter);
+//do similar as above for attendee route and reminder route
+app.use("/api/v1/events/:eventId/attendees", authenticateUser, attendeesRouter);
+app.use("/api/v1/events/:eventId/reminders", authenticateUser, remindersRouter);
+
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
