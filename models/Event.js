@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const EventSchema = new mongoose.Schema(
   {
-    name: {
+    eventName: {
       type: String,
       required: [true, "Please provide the event name"],
     },
@@ -20,7 +20,7 @@ const EventSchema = new mongoose.Schema(
     },
     eventType: {
       type: String,
-      enum: ["Conference", "Workshop", "Seminar", "Network"],
+      enum: ["conference", "workshop", "network"],
       required: [true, "Please specify an event type"],
     },
     //stores the ID of the user who created the event

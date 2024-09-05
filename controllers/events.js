@@ -33,7 +33,7 @@ const updateEvent = async (req, res) => {
   const {
     // Extracts the event details from the request body.
     // This is the data sent by the client to update the event.
-    body: { name, description, date, location },
+    body: { eventName, description, date, location },
     // Extracts the user ID from the authenticated user's information.
     // This ID is used to ensure that the user making the request is authorized to update the event.
     user: { userId },
@@ -42,7 +42,7 @@ const updateEvent = async (req, res) => {
     params: { id: eventId },
   } = req;
 
-  if (!name || !date || !location) {
+  if (!eventName || !date || !location) {
     throw new BadRequestError(
       "Name, date, and location fields cannot be empty"
     );
@@ -74,8 +74,8 @@ const deleteEvent = async (req, res) => {
   if (!event) {
     throw new NotFoundError(`No event found with id ${eventId}`);
   }
-
-  res.status(StatusCodes.OK).send();
+  // an empty body is not valid JSON
+  res.status(StatusCodes.NO_CONTENT).send({ event });
 };
 
 module.exports = {

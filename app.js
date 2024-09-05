@@ -47,10 +47,11 @@ app.use("/api/v1/events", authenticateUser, eventsRouter);
 app.use("/api/v1/events/:eventId/attendees", authenticateUser, attendeesRouter);
 app.use("/api/v1/events/:eventId/reminders", authenticateUser, remindersRouter);
 
+// app.get("/", (req, res) => {
+//   res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
+// });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(express.static("public"));
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
