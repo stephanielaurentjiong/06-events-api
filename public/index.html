@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events List</title>
+  </head>
+
+  <body>
+    <h1>Events List</h1>
+    <hr />
+    <p id="message"></p>
+    <hr />
+    <div id="logon-register" style="display: none">
+      <button type="button" id="logon">logon</button>
+      <button type="button" id="register">register</button>
+    </div>
+    <div id="logon-div" style="display: none">
+      <form>
+        <div>
+          <label for="email">email:</label>
+          <input type="email" id="email" />
+        </div>
+        <div>
+          <label for="password">password:</label>
+          <input type="password" id="password" />
+        </div>
+        <button type="button" id="logon-button">logon</button>
+        <button type="button" id="logon-cancel">cancel</button>
+      </form>
+    </div>
+    <div id="register-div" style="display: none">
+      <form>
+        <div>
+          <label for="name">name:</label>
+          <input type="text" id="name" />
+        </div>
+        <div>
+          <label for="email1">email:</label>
+          <input type="email" id="email1" />
+        </div>
+        <div>
+          <label for="password1">password:</label>
+          <input type="password" id="password1" />
+        </div>
+        <div>
+          <label for="password2">verify password:</label>
+          <input type="password" id="password2" />
+        </div>
+        <button type="button" id="register-button">register</button>
+        <button type="button" id="register-cancel">cancel</button>
+      </form>
+    </div>
+    <div id="events" style="display: none">
+      <p id="events-message"></p>
+      <table id="events-table">
+        <tr id="events-table-header">
+          <th>Event Name</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Event Type</th>
+          <th colspan="2"></th>
+        </tr>
+      </table>
+      <button type="button" id="add-event">add event</button>
+      <button type="button" id="logoff">log off</button>
+    </div>
+    <div id="edit-event" style="display: none">
+      <form>
+        <div>
+          <label for="eventName">event name:</label>
+          <input type="text" id="eventName" />
+        </div>
+        <div>
+          <label for="description">description:</label>
+          <input type="text" id="description" />
+        </div>
+         <div>
+          <label for="date">date:</label>
+          <input type="date" id="date" />
+        </div>
+        <div>
+          <label for="location">location:</label>
+          <input type="text" id="location" />
+        </div>
+        <div>
+          <label for="eventType">event type:</label>
+          <select id="eventType">
+            <option value="conference">conference</option>
+            <option value="workshop">workshop</option>
+            <option value="network">network</option>
+          </select>
+        </div>
+        <button type="button" id="adding-event">add</button>
+        <button type="button" id="edit-cancel">cancel</button>
+      </form>
+    </div>
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
