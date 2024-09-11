@@ -27,7 +27,10 @@ export const handleRegister = () => {
   registerDiv.addEventListener("click", async (e) => {
     if (inputEnabled && e.target.nodeName === "BUTTON") {
       if (e.target === registerButton) {
-        if (password1.value != password2.value) {
+        if (password1.value.length <= 10) {
+          message.textContent =
+            "The password entered is too short. Please provide 10+ more characters.";
+        } else if (password1.value != password2.value) {
           message.textContent = "The passwords entered do not match.";
         } else {
           enableInput(false);
@@ -46,7 +49,7 @@ export const handleRegister = () => {
             });
 
             const data = await response.json();
-            console.log(data)
+            console.log(data);
             if (response.status === 201) {
               message.textContent = `Registration successful.  Welcome ${data.user.name}`;
               setToken(data.token);
@@ -72,6 +75,8 @@ export const handleRegister = () => {
         email1.value = "";
         password1.value = "";
         password2.value = "";
+
+        message.textContent = "";
         showLoginRegister();
       }
     }

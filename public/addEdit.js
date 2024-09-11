@@ -7,7 +7,17 @@ let description = null;
 let date = null;
 let location = null;
 let eventType = null;
-let addingEvent = null; 
+let addingEvent = null;
+
+
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+
 
 export const handleAddEdit = () => {
   addEditDiv = document.getElementById("edit-event");
@@ -30,8 +40,7 @@ export const handleAddEdit = () => {
         if (addingEvent.textContent === "update") {
           method = "PATCH";
           url = `/api/v1/events/${addEditDiv.dataset.id}`;
-        } 
-     
+        }
 
         try {
           // console.log({
@@ -58,15 +67,14 @@ export const handleAddEdit = () => {
           });
 
           const data = await response.json();
-          if (response.status === 201 || response.status === 200 ) {
+          if (response.status === 201 || response.status === 200) {
             if (response.status === 200) {
               //200 is successful update
               message.textContent = "The event entry was updated.";
             } else if (response.status === 201) {
               // 201 is succesful create
               message.textContent = "The new event entry was created.";
-            } 
-           
+            }
 
             eventName.value = "";
             description.value = "";
@@ -75,10 +83,12 @@ export const handleAddEdit = () => {
             eventType.value = "conference";
 
             showEvents();
-          } else { //if unsucessful
+          } else {
+            //if unsucessful
             message.textContent = data.msg;
           }
-        } catch (err) { //if have error
+        } catch (err) {
+          //if have error
           console.log(err);
           message.textContent = "A communication error occurred.";
         }
@@ -114,13 +124,20 @@ export const showAddEdit = async (eventId) => {
           Authorization: `Bearer ${token}`,
         },
       });
+
       const data = await response.json();
       if (response.status === 200) {
         eventName.value = data.event.eventName;
         description.value = data.event.description;
-        date.value = data.event.date;
+
+        const eventDate = new Date(data.event.date);
+        const formattedDate = formatDate(eventDate);
+        date.value = formattedDate;
+
+        // date.value = data.event.date;
         location.value = data.event.location;
         eventType.value = data.event.eventType;
+
         addingEvent.textContent = "update";
         message.textContent = "";
         addEditDiv.dataset.id = eventId;

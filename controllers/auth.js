@@ -2,38 +2,39 @@ const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 
-
 const register = async (req, res) => {
-   try {
-     const user = await User.create({ ...req.body });
-     const token = user.createJWT();
-     res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
-   } catch (error) {
-     res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
-   }
+  // const { password } = req.body;
+  // if (password.length <= 10) {
+  //   return res.status(StatusCodes.BAD_REQUEST).json({ error: `Password is too short. Please provide 10+ characters`})
+  // }
+  try {
+    const user = await User.create({ ...req.body });
+    const token = user.createJWT();
+    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
+  } catch (error) {
+    res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
+  }
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body
+  const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new BadRequestError('Please provide email and password')
+    throw new BadRequestError("Please provide email and password");
   }
-  
-  const user = await User.findOne({ email })
+
+  const user = await User.findOne({ email });
   if (!user) {
-    throw new UnauthenticatedError('Invalid Credentials')
+    throw new UnauthenticatedError("Invalid Credentials");
   }
-  const isPasswordCorrect = await user.comparePassword(password)
+  const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
-    throw new UnauthenticatedError('Invalid Credentials')
+    throw new UnauthenticatedError("Invalid Credentials");
   }
   // compare password
-  const token = user.createJWT()
-  res.status(StatusCodes.OK).json({ user: { name: user.name }, token })
-}
-
-
+  const token = user.createJWT();
+  res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
+};
 
 module.exports = {
   register,

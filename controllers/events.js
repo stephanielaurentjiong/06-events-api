@@ -54,6 +54,8 @@ const updateEvent = async (req, res) => {
     { new: true, runValidators: true }
   );
 
+  console.log("Update request body:", req.body);
+
   if (!event) {
     throw new NotFoundError(`No event found with id ${eventId}`);
   }
